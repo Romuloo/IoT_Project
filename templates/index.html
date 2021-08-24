@@ -3,8 +3,9 @@
 <head>
 	<meta charset = "UTF=8">
 	<title>Humidity and Temperare Monitoring System</title>
+	<script src="static/js/main.js"></script> 
 </head>
-<body>
+<body onload="keep_alive(); time();">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
 	<h1>Humidity and Temperature Monitoring System</h1>
 	<ul>
