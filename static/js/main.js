@@ -12,6 +12,9 @@ function keep_alive()
 					alive_second = date.getTime();
 					var keep_alive_data = this.responseText;
 					console.log(keep_alive_data);
+					var json_data = this.responseText;
+					var json_obj = JSON.parse(json_data);
+					document.getElementById("TempHum_id").innerHTML = json_obj.tempHum
 				}
 			}
 		}

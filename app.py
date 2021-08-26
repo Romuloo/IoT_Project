@@ -1,10 +1,22 @@
 from flask import Flask, render_template
-import json, time
+import json, time, threading
+import sys
+import Adafruit_DHT
+
 
 app = Flask(__name__)
 
 alive = 0
-data = {} 
+data = {}
+
+
+def tempHumidity():
+        while True:
+            humidity, temperature = Adafruit_DHT.read_retry(11,4)
+            print('Temp:  {0:0.1f} C  Humidity: {1:0.1f} %'.format(temperature, humidity)) 
+            data["tempHum"] ='Temperature: ' + str(temperature) + ' | Humidity: ' + str(humidity)
+            time.sleep(5)
+
 
 
 @app.route('/')
@@ -23,5 +35,7 @@ def keep_alive():
 
 
 if __name__ == '__main__':
+    sensorsThread = threading.Thread(target = tempHumidity)
+    sensorsThread.start()
     app.run(host = '192.168.1.46', port = 80)
 
