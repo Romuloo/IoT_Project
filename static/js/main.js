@@ -38,3 +38,35 @@ function time()
 	}
 	setTimeout('time()', 1000);
 }
+
+function sendEvent(value)
+{
+	var request = new XMLHttpRequest();
+	request.onreadystatechange = function()
+	{
+		if(this.readystate === 4)
+		{
+			if(this.status === 200)
+			{
+				if(this.responseText !== null)
+				{
+				}
+			}
+		}
+	};
+	request.open("POST", "status=" + value, true);
+	request.send(null);
+}
+
+
+
+function handleClick(cb)
+{
+	if(cb.checked){
+		value = "ON";
+	}
+	else{
+		value = "OFF";
+	}
+	sendEvent(cb.id + "-" + value);
+}

@@ -11,9 +11,11 @@ data = {}
 
 
 def tempHumidity():
-        while True:
+    data["works"] = False
+    while True:
+        if data["works"]:
             humidity, temperature = Adafruit_DHT.read_retry(11,4)
-            print('Temp:  {0:0.1f} C  Humidity: {1:0.1f} %'.format(temperature, humidity)) 
+            print('Temp:  {0:0.1f} C  Humidity: {1:0.1f} %'.format(temperature, humidity))
             data["tempHum"] ='Temperature: ' + str(temperature) + ' | Humidity: ' + str(humidity)
             time.sleep(5)
 
@@ -22,6 +24,7 @@ def tempHumidity():
 @app.route('/')
 def index():
     return render_template("index.html");
+
 
 @app.route("/keep_alive", methods=["GET"])
 def keep_alive():
@@ -32,6 +35,18 @@ def keep_alive():
     parsed_json = json.dumps(data)
     print(str(parsed_json))
     return str(parsed_json)
+
+
+@app.route("/status=<name>-<action>", methods = ["POST"])
+def event(name, action):
+    global data
+    print("Got: " + name + ", action: " + action)
+    if name == "sensor":
+        if action == "ON": 
+            data["works"] = True
+        elif action == "OFF":
+            data["works"] = False
+    return str("OK")
 
 
 if __name__ == '__main__':
