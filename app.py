@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import json, time, threading
+import json, time
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ data = {}
 def index():
     return render_template("index.html");
 
-@app.route('/keep_alive', methods=["GET"])
+@app.route("/keep_alive", methods=["GET"])
 def keep_alive():
     global alive, data
     alive += 1
@@ -23,5 +23,5 @@ def keep_alive():
 
 
 if __name__ == '__main__':
-    app.run(host = '192.168.1.46',port=80)
+    app.run(host = '192.168.1.46', port = 80)
 

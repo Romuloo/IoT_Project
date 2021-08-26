@@ -4,16 +4,12 @@ var heartbeat_rate = 5000;
 function keep_alive()
 {
 	var request  = new XMLHttpRequest();
-	request.onereadystatechange = function()
-	{
-		if(this.readyState === 4)
-		{
-			if(this.status === 200)
-			{
-				if(this.responseText != null)
-				{
+	request.onreadystatechange = function(){
+		if(this.readyState === 4){
+			if(this.status === 200){
+				if(this.responseText !== null){
 					var date = new Date();
-					alive_seccond = date.getTime();
+					alive_second = date.getTime();
 					var keep_alive_data = this.responseText;
 					console.log(keep_alive_data);
 				}
