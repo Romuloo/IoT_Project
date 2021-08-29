@@ -4,11 +4,19 @@ from flask import Flask, render_template, url_for, redirect, session, flash
 from flask_dance.contrib.facebook import make_facebook_blueprint, facebook
 import json
 
-
-app = Flask(__name__)
+from flask_sqlalchemy import SQLAlchemy
 
 alive = 0
 data = {}
+
+app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Mordret987?@localhost/sd3a_iot'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+from . import myDB
 
 # Facebook id and secret
 facebookID = "550486829613429"
@@ -49,6 +57,7 @@ def login():
 
 @app.route('/logout')
 def logout():
+    myDB.user_logout(session['user_id'])
     clear_user_session()
     flash("You just logged out")
     return redirect(url_for("login"))
@@ -68,6 +77,8 @@ def LoginRequired(f):
 @LoginRequired
 def main():
     flash(session["user"])
+    myDB.add_user_and_login(session['user'], int(session['user_id']))
+    myDB.view_all()
     return render_template("index.html")
 
 
