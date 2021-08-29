@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset = "UTF=8">
+	<title>Humidity and Temperare Monitoring System</title>
+	<link rel="icon" type="image/png" href="static/img/favouriteIcon.png">
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.32.1.js"></script>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.32.1.min.js"></script>
+	<script src="static/js/main.js"></script>
+
+</head>
+<body onload="keep_alive(); time();">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+	<h1>Humidity and Temperature Monitoring System</h1>
+	<ul>
+		<a><li>Connection: <span id = "Connection_id">...</span></a>
+	</ul>
+	<div>
+		<h3>Temperature | Humidity: <span id = "TempHum_id"></span></h3>
+		<label><input type="checkbox" id="sensor" onclick="handleClick(this);">Sensor ON</label>
+	</div>
+</body>
+
