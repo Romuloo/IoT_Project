@@ -17,7 +17,14 @@
 	</ul>
 	<div>
 		<h3>Temperature | Humidity: <span id = "TempHum_id"></span></h3>
-		<label><input type="checkbox" id="sensor" onclick="handleClick(this);">Sensor ON</label>
+		<label><input type="checkbox" id="sensor" onclick="handleClick(this);">Sensor ON<br></label>
 	</div>
+    <span>
+        {% for message in get_flashed_messages() %}
+            {{ message }}
+        {% endfor %}
+    </span>
+    <a href='#' onclick="logout()">Logout</a>
+
 </body>
 

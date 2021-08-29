@@ -1,3 +1,4 @@
+
 var alive_second = 0;
 var heartbeat_rate = 5000;
 
@@ -50,10 +51,11 @@ function handleClick(cb)
 	btnStatus[cb.id] = value;
 	var event = new Object();
 	event.event = btnStatus;
+	console.log("Calling publishUpdate from handleClick");
 	publishUpdate(event, myChannel);
 }
 
-const pubnub = new PubNub({
+pubnub = new PubNub({
 	publishKey: "pub-c-213e5f7e-5e67-4544-8cac-70904aea009c",
 	subscribeKey: "sub-c-6919a660-226c-11eb-90e0-26982d4915be",
 	uuid: "48f860ca-07f3-11ec-9a03-0242ac130003"
@@ -62,20 +64,20 @@ const pubnub = new PubNub({
 pubnub.addListener({
         status: function(statusEvent) {
             if (statusEvent.category === "PNConnectedCategory") {
-             //   publishSampleMessage();
+            //    publishSampleMessage();
             }
         },
         message: function(msg) {
           var msg = msg.message;
           console.log(msg);
-          document.getElementById("TempHum_id").innerHTML = msg["tempHum"]
+          document.getElementById("TempHum_id").innerHTML = msg["tempHum"];
         },
         presence: function(presenceEvent) {
             // This is where you handle presence. Not important for now :)
         }
     })
 
-  pubnub.subscribe({
+pubnub.subscribe({
         channels: [myChannel]
     });
 
@@ -92,4 +94,12 @@ function  publishUpdate(data, channel){
 			}
 		}
 	);
+}
+
+function logout(){
+	console.log("Logging out and unsubscribing");
+	pubnub.unsubscribe({
+		channel: [myChannel]
+	})
+	location.replace("/logout")
 }

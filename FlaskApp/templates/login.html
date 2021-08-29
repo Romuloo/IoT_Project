@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login to a IoT Server</title>
+    <link rel="icon" type="image/png" href="static/img/favouriteIcon.png">
+
+</head>
+<body>
+<link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+
+<h2>Login to access the MyDevice IoT Server</h2>
+{% if not session.logged_in %}
+<a href="/facebook_login">Log in with facebook</a>
+{% else %}
+<a href="/main"></a>
+{% endif %}
+
+<span>
+    {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}
+</span>
+</body>
+</html>
