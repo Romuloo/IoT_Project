@@ -11,7 +11,7 @@ data = {}
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Mordret987?@localhost/sd3a_iot'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:pass?@localhost/sd3a_iot'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
