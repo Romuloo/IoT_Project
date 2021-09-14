@@ -19,8 +19,8 @@ db = SQLAlchemy(app)
 from . import myDB
 
 # Facebook id and secret
-facebookID = "550486829613429"
-facebookSecret = "3124cbe71e7ed076604ae7f8c5baf380"
+facebookID = "-"
+facebookSecret = "-"
 
 facebook_blueprint = make_facebook_blueprint(client_id=facebookID, client_secret=facebookSecret)
 app.register_blueprint(facebook_blueprint, url_prefix="/facebook_login")
